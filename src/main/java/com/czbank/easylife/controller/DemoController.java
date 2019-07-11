@@ -25,7 +25,7 @@ public class DemoController {
         return demo;
     }
 
-    @RequestMapping(value = "all/{demoId}", method = RequestMethod.GET)
+    @RequestMapping(value = "all", method = RequestMethod.GET)
     public @ResponseBody
     List<Demo> findAll(Model model,
                       HttpServletRequest request) throws Exception {
