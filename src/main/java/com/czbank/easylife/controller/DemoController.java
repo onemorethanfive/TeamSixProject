@@ -3,6 +3,7 @@ package com.czbank.easylife.controller;
 import com.czbank.easylife.model.Demo;
 import com.czbank.easylife.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Controller
+@RequestMapping("/demo/")
 public class DemoController {
     @Autowired
     private DemoService demoService;
