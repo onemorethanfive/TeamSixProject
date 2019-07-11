@@ -14,6 +14,7 @@ public class DemoService {
 
     public Demo findBunkById(String demoId) {
         Demo demo = demoMapper.findDemoById(demoId);
+        //demo.getDemoId;
         return demo;
     }
 

@@ -32,6 +32,7 @@ public class DemoController {
     public @ResponseBody
     List<Demo> findAll(Model model,
                       HttpServletRequest request) throws Exception {
+        System.out.println("1111111111");
         List<Demo> demos = demoService.findAll();
         return demos;
     }
