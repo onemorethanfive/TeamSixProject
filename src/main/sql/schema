@@ -1,0 +1,9 @@
+-- 创建用户表
+CREATE TABLE `user` (
+  `user_id` varchar (20) NOT NULL  COMMENT '用户ID',
+  `user_name` varchar(100) NOT NULL COMMENT '用户名称',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+/*  user_id 生成策略
+ *
+*/
