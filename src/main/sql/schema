@@ -1,4 +1,5 @@
 -- 创建demo表
+DROP TABLE IF EXISTS `demo`;
 CREATE TABLE `demo` (
   `demo_id` varchar (20) NOT NULL  COMMENT 'demoID',
   `demo_name` varchar(20) NOT NULL COMMENT 'demo名称',
@@ -7,3 +8,98 @@ CREATE TABLE `demo` (
 /*  demo_id 生成策略
  *
 */
+/*
+eoLinker MySQL Data Transfer
+
+Source Database    : 示例项目 / DBM DEMO PROJECT
+
+Target Server Type : MYSQL
+Database Version   : 1
+
+Date               : 2019-07-11 20:22:36
+*/
+
+-- ----------------------------
+-- Table structure for user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `user_info`;
+CREATE TABLE `user_info` (
+ `user_id` varchar(20) NOT NULL COMMENT '用户ID',
+ `user_name` varchar(255) NOT NULL COMMENT '用户名称',
+ `user_psw` varchar(255) NOT NULL COMMENT '用户密码',
+ `ID_num` varchar(20) NOT NULL COMMENT '身份证号',
+ `user_gender` varchar(20) NOT NULL DEFAULT '0' COMMENT '性别',
+ `user_budget` varchar(20) NULL DEFAULT NULL COMMENT '用户每月预算',
+ `user_loc` varchar(20) NOT NULL COMMENT '用户居住地',
+ PRIMARY KEY (`user_id`)
+);
+
+-- ----------------------------
+-- Table structure for card_info
+-- ----------------------------
+DROP TABLE IF EXISTS `card_info`;
+CREATE TABLE `card_info` (
+ `card_id` varchar(30) NOT NULL COMMENT '银行卡号',
+ `card_psw` varchar(10) NOT NULL COMMENT '银行卡密码',
+ `card_money` varchar(20) NOT NULL COMMENT '银行卡余额',
+ `card_type` varchar(2) NOT NULL COMMENT '银行卡类型//储蓄卡信用卡等',
+ `card_loc` varchar(20) NOT NULL COMMENT '银行卡网点',
+ `card_time` varchar(20) NOT NULL COMMENT '银行卡发卡日期',
+ PRIMARY KEY (`card_id`)
+);
+
+-- ----------------------------
+-- Table structure for bill_info
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_info`;
+CREATE TABLE `bill_info` (
+ `bill_id` varchar(20) NOT NULL COMMENT '订单ID',
+ `bill_type` varchar(20) NOT NULL COMMENT '流水类型（收入/支出）',
+ `bill_num` varchar(20) NOT NULL COMMENT '订单金额',
+ `bill_date` varchar(20) NOT NULL COMMENT '订单日期',
+ `bill_tag` varchar(20) NULL DEFAULT NULL COMMENT '流水标签',
+ `sign` varchar(20) NOT NULL COMMENT '签名',
+ `sign_type` varchar(20) NOT NULL COMMENT '签名类型',
+ `bill_remarks` varchar(20) NULL DEFAULT NULL COMMENT '订单备注',
+ PRIMARY KEY (`bill_id`)
+);
+
+-- ----------------------------
+-- Table structure for wish_info
+-- ----------------------------
+DROP TABLE IF EXISTS `wish_info`;
+CREATE TABLE `wish_info` (
+ `wish_id` varchar(20) NOT NULL COMMENT '愿望ID',
+ `wish_name` varchar(20) NOT NULL COMMENT '愿望目标（名称）',
+ `wish_num` varchar(20) NOT NULL COMMENT '愿望金额',
+ `star_date` varchar(20) NOT NULL COMMENT '开始日期',
+ `target_date` varchar(20) NOT NULL COMMENT '目标日期',
+ `wish_state` varchar(20) NOT NULL COMMENT '愿望状态（已完成/未完成/已放弃）',
+ `current_state` varchar(20) NOT NULL COMMENT '当前进度',
+ `wish_remark` varchar(20) NULL DEFAULT NULL COMMENT '愿望备注',
+ `interest_rate` varchar(20) NOT NULL COMMENT '利率',
+ `interest_id` varchar(20) NOT NULL COMMENT '定投产品ID',
+ `wish_bill_id` varchar(20) NOT NULL COMMENT '理财订单号',
+ PRIMARY KEY (`wish_id`)
+);
+
+-- ----------------------------
+-- Table structure for card_user_map
+-- ----------------------------
+DROP TABLE IF EXISTS `card_user_map`;
+CREATE TABLE `card_user_map` (
+ `card_id` varchar(30) NOT NULL COMMENT '银行卡id',
+ `user_id` varchar(20) NOT NULL COMMENT '用户id',
+ PRIMARY KEY (`card_id`,`user_id`)
+);
+
+-- ----------------------------
+-- Table structure for bill_card_map
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_card_map`;
+CREATE TABLE `bill_card_map` (
+ `bill_id` varchar(20) NOT NULL COMMENT '流水id',
+ `card_id` varchar(30) NOT NULL COMMENT '银行卡卡号',
+ PRIMARY KEY (`bill_id`,`card_id`)
+);
+
