@@ -8,22 +8,12 @@ CREATE TABLE `demo` (
 /*  demo_id 生成策略
  *
 */
-/*
-eoLinker MySQL Data Transfer
-
-Source Database    : 示例项目 / DBM DEMO PROJECT
-
-Target Server Type : MYSQL
-Database Version   : 1
-
-Date               : 2019-07-11 20:22:36
-*/
 
 -- ----------------------------
--- Table structure for user_info
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `user_info`;
-CREATE TABLE `user_info` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
  `user_id` varchar(20) NOT NULL COMMENT '用户ID',
  `user_name` varchar(255) NOT NULL COMMENT '用户名称',
  `user_psw` varchar(255) NOT NULL COMMENT '用户密码',
@@ -35,10 +25,10 @@ CREATE TABLE `user_info` (
 );
 
 -- ----------------------------
--- Table structure for card_info
+-- Table structure for card
 -- ----------------------------
-DROP TABLE IF EXISTS `card_info`;
-CREATE TABLE `card_info` (
+DROP TABLE IF EXISTS `card`;
+CREATE TABLE `card` (
  `card_id` varchar(30) NOT NULL COMMENT '银行卡号',
  `card_psw` varchar(10) NOT NULL COMMENT '银行卡密码',
  `card_money` varchar(20) NOT NULL COMMENT '银行卡余额',
@@ -49,10 +39,10 @@ CREATE TABLE `card_info` (
 );
 
 -- ----------------------------
--- Table structure for bill_info
+-- Table structure for bill
 -- ----------------------------
-DROP TABLE IF EXISTS `bill_info`;
-CREATE TABLE `bill_info` (
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE `bill` (
  `bill_id` varchar(20) NOT NULL COMMENT '订单ID',
  `bill_type` varchar(20) NOT NULL COMMENT '流水类型（收入/支出）',
  `bill_num` varchar(20) NOT NULL COMMENT '订单金额',
@@ -65,10 +55,10 @@ CREATE TABLE `bill_info` (
 );
 
 -- ----------------------------
--- Table structure for wish_info
+-- Table structure for wish
 -- ----------------------------
-DROP TABLE IF EXISTS `wish_info`;
-CREATE TABLE `wish_info` (
+DROP TABLE IF EXISTS `wish`;
+CREATE TABLE `wish` (
  `wish_id` varchar(20) NOT NULL COMMENT '愿望ID',
  `wish_name` varchar(20) NOT NULL COMMENT '愿望目标（名称）',
  `wish_num` varchar(20) NOT NULL COMMENT '愿望金额',
