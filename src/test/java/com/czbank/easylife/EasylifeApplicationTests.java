@@ -1,4 +1,4 @@
-package com.czbank.easylife.easylife;
+package com.czbank.easylife;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
