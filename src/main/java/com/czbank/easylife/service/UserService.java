@@ -14,17 +14,15 @@ public class UserService {
         return userMapper.findUserById(userId);
     }
 
-    public boolean login(String userId, String userPsd){
+    public boolean login(String userId, String userPsw){
         User user = userMapper.findUserById(userId);
-        if (user.getUserPsw().equals(userPsd))
-            return true;
-        else return false;
+        return user.getUserPsw().equals(userPsw);
     }
 
     public void addUser(User newUser){
         userMapper.addUser(newUser.getUserId(),newUser.getUserName(),newUser.getUserPsw(),
                 newUser.getIdNum(),newUser.getUserGender(),
-                newUser.getUserLoc(),newUser.getUserBudget());
+                newUser.getUserLoc());
     }
 
     public void modifyInfo(User modifyUser){
@@ -35,7 +33,7 @@ public class UserService {
             modifyUser.setUserPsw(user.getUserPsw());
         if(modifyUser.getUserGender() == null)
             modifyUser.setUserGender(user.getUserGender());
-        userMapper.updateUser(modifyUser.getUserPsw(),modifyUser.getUserGender(),modifyUser.getUserLoc());
+        userMapper.updateUser(modifyUser.getUserPsw(),modifyUser.getUserGender(),modifyUser.getUserLoc(),modifyUser.getUserId());
 
     }
 }
