@@ -2,6 +2,7 @@ package com.czbank.easylife.controller;
 
 import com.czbank.easylife.model.User;
 import com.czbank.easylife.service.UserService;
+import com.czbank.easylife.util.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,38 +70,69 @@ public class UserController {
         return responseMessage;
     }
 
-    @RequestMapping(value = "signUp", method = RequestMethod.POST)
-    public @ResponseBody
-    Object signUp(Model model,
-                  HttpServletRequest request,
-                  @RequestParam(value = "userId", defaultValue = "") final String userId,
-                  @RequestParam(value = "userPsw", defaultValue = "") final String userPsw,
-                  @RequestParam(value = "userName", defaultValue = "") final String userName
-    ) throws Exception {
-        String responseBody = "";
-        Map responseMessage = new HashMap();
-        responseMessage.put("success", true);
-        User user = new User();
-        user.setUserId(userId);
-        user.setUserPsw(userPsw);
-        user.setUserName(userName);
-        try {
-            User check = userService.getUserById(userId);
-            if(check != null){
-                responseMessage.put("message","注册失败：账户已被注册");
-                responseMessage.put("success", false);
-                return responseMessage;
-            }
-            userService.addUser(user);
-            responseMessage.put("message","注册成功");
-            return responseMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseMessage.put("reason", "系统错误"+e.getMessage());
+//    @RequestMapping(value = "signUp", method = RequestMethod.POST)
+//    public @ResponseBody
+//    Object signUp(Model model,
+//                  HttpServletRequest request,
+//                  @RequestParam(value = "userId", defaultValue = "") final String userId,
+//                  @RequestParam(value = "userPsw", defaultValue = "") final String userPsw,
+//                  @RequestParam(value = "userName", defaultValue = "") final String userName
+//    ) throws Exception {
+//        String responseBody = "";
+//        Map responseMessage = new HashMap();
+//        responseMessage.put("success", true);
+//        User user = new User();
+//        user.setUserId(userId);
+//        user.setUserPsw(userPsw);
+//        user.setUserName(userName);
+//        try {
+//            User check = userService.getUserById(userId);
+//            if(check != null){
+//                responseMessage.put("message","注册失败：账户已被注册");
+//                responseMessage.put("success", false);
+//                return responseMessage;
+//            }
+//            userService.addUser(user);
+//            responseMessage.put("message","注册成功");
+//            return responseMessage;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            responseMessage.put("reason", "系统错误"+e.getMessage());
+//            responseMessage.put("success", false);
+//        }
+//        return responseMessage;
+//    }
+@RequestMapping(value = "signUp", method = RequestMethod.POST)
+public @ResponseBody
+Object signUp(@RequestBody String body
+//              @RequestParam(value = "userId", defaultValue = "") final String userId,
+//              @RequestParam(value = "userPsw", defaultValue = "") final String userPsw,
+//              @RequestParam(value = "userName", defaultValue = "") final String userName
+) throws Exception {
+    String responseBody = "";
+    Map responseMessage = new HashMap();
+    responseMessage.put("success", true);
+    User user = JsonHelper.getInstance().read(body,User.class);
+//    user.setUserId(userId);
+//    user.setUserPsw(userPsw);
+//    user.setUserName(userName);
+    try {
+        User check = userService.getUserById(user.getUserId());
+        if(check != null){
+            responseMessage.put("message","注册失败：账户已被注册");
             responseMessage.put("success", false);
+            return responseMessage;
         }
+        userService.addUser(user);
+        responseMessage.put("message","注册成功");
         return responseMessage;
+    } catch (Exception e) {
+        e.printStackTrace();
+        responseMessage.put("reason", "系统错误"+e.getMessage());
+        responseMessage.put("success", false);
     }
+    return responseMessage;
+}
 
     @RequestMapping(value = "modifyInfo", method = RequestMethod.POST)
     public @ResponseBody

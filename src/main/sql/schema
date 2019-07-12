@@ -17,10 +17,10 @@ CREATE TABLE `user` (
  `user_id` varchar(20) NOT NULL COMMENT '用户ID',
  `user_name` varchar(255) NOT NULL COMMENT '用户名称',
  `user_psw` varchar(255) NOT NULL COMMENT '用户密码',
- `ID_num` varchar(20) NOT NULL COMMENT '身份证号',
- `user_gender` varchar(20) NOT NULL DEFAULT '0' COMMENT '性别',
+ `ID_num` varchar(20)  NULL DEFAULT NULL COMMENT '身份证号',
+ `user_gender` varchar(20)  NULL DEFAULT NULL COMMENT '性别',
  `user_budget` varchar(20) NULL DEFAULT NULL COMMENT '用户每月预算',
- `user_loc` varchar(20) NOT NULL COMMENT '用户居住地',
+ `user_loc` varchar(20)  NULL DEFAULT NULL COMMENT '用户居住地',
  PRIMARY KEY (`user_id`)
 );
 
