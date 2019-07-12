@@ -18,9 +18,9 @@ public class BillCardMapController {
     @Autowired
     private BillCardMapService billCardMapService;
 
-    @RequestMapping(value = "findCardsByUser/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "findBillsByCard/{cardId}", method = RequestMethod.GET)
     public @ResponseBody
-    Object findCardsByUser(Model model,
+    Object findBillsByCard(Model model,
                            HttpServletRequest request, @PathVariable String cardId
     ) throws Exception {
         String responseBody = "";

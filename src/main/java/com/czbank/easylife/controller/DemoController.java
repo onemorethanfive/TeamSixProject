@@ -3,7 +3,6 @@ package com.czbank.easylife.controller;
 import com.czbank.easylife.model.Demo;
 import com.czbank.easylife.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,20 @@ public class DemoController {
                             HttpServletRequest request,
                             @PathVariable String demoId) throws Exception {
         Demo demo = demoService.findBunkById(demoId);
+        return demo;
+    }
+
+    @RequestMapping(value = "addDemo", method = RequestMethod.GET)
+    public @ResponseBody
+    Demo addDemo(Model model,
+                      HttpServletRequest request,
+                 @RequestParam(value="demoId", defaultValue = "") String demoId,
+                 @RequestParam(value="demoName", defaultValue = "") String demoName
+                 ) throws Exception {
+        Demo demo = new Demo();
+        demo.setDemoId(demoId);
+        demo.setDemoName(demoName);
+        demoService.addDemo(demo);
         return demo;
     }
 

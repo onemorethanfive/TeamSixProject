@@ -18,6 +18,10 @@ public class DemoService {
         return demo;
     }
 
+    public void addDemo(Demo demo) {
+        demoMapper.addDemo(demo);
+    }
+
     public List<Demo> findAll() {
         List<Demo> demos = demoMapper.findAll();
         return demos;
