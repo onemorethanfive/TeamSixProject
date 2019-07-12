@@ -11,6 +11,7 @@ import java.util.List;
 public interface CardUserMapMapper {
     @Select("SELECT a.* FROM card a , card_user_map b WHERE a.card_id = b.card_id AND b.user_id = #{userId};")
     public List<Card> findCardsByUser(@Param("userId") String userId);
+
     @Insert("INSERT INTO card_user_map (card_id,user_id) VALUES (#{cardId},#{userId};")
     public void addCardIntoMap(@Param("cardId") String cardId, @Param("userId") String userId);
 
