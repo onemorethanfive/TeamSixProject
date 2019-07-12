@@ -90,7 +90,7 @@ DROP TABLE IF EXISTS `bill_card_map`;
 CREATE TABLE `bill_card_map` (
  `bill_id` varchar(20) NOT NULL COMMENT '流水id',
  `card_id` varchar(30) NOT NULL COMMENT '银行卡卡号',
- `bill_eztag` varchar(10) NOT NULL COMMIT  '易生活专用tag',
+ `bill_eztag` varchar(10) NOT NULL COMMENT  '易生活专用tag',
  PRIMARY KEY (`bill_id`,`card_id`)
 );
 
