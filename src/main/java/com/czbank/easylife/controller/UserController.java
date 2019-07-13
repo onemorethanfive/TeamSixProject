@@ -80,6 +80,7 @@ public class UserController {
             "userPsw":"12345",
             "userName":"sb"
         }
+        添加成功后其他条目给予默认值""
      */
     @RequestMapping(value = "signUp", method = RequestMethod.POST)
     public @ResponseBody
@@ -107,6 +108,14 @@ public class UserController {
         return responseMessage;
     }
 
+    /*
+        {
+            "userId":"qqq",
+            "userLoc":"c",
+            "userGender":"0"
+        }
+        可修改:userLoc,userGender,userBudget,只写要改的参数
+     */
     @RequestMapping(value = "modifyInfo", method = RequestMethod.POST)
     public @ResponseBody
     Object modifyInfo(@RequestBody String body)throws Exception {
@@ -126,6 +135,13 @@ public class UserController {
         return responseMessage;
     }
 
+    /*
+        {
+            "userId":"qqq",
+            "userPswOld":"12345",
+            "userPswNew":"22"
+        }
+     */
 
     @RequestMapping(value = "modifyPsw", method = RequestMethod.POST)
     public @ResponseBody

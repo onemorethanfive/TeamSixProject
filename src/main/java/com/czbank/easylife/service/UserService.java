@@ -20,20 +20,21 @@ public class UserService {
     }
 
     public void addUser(User newUser){
-        userMapper.addUser(newUser.getUserId(),newUser.getUserName(),newUser.getUserPsw(),
-                newUser.getIdNum(),newUser.getUserGender(),
-                newUser.getUserLoc());
+        userMapper.addUser(newUser.getUserId(),newUser.getUserName(),newUser.getUserPsw());
     }
 
     public void modifyInfo(User modifyUser){
         User user = userMapper.findUserById(modifyUser.getUserId());
-        if(modifyUser.getUserLoc().equals(""))
+        //modifyUser传入的是只有需修改部分的字段,不修改的为null
+        if(modifyUser.getUserLoc() == null)
             modifyUser.setUserLoc(user.getUserLoc());
-        if(modifyUser.getUserPsw().equals(""))
+        if(modifyUser.getUserPsw() == null)
             modifyUser.setUserPsw(user.getUserPsw());
-        if(modifyUser.getUserGender().equals(""))
+        if(modifyUser.getUserGender() == null)
             modifyUser.setUserGender(user.getUserGender());
-        userMapper.updateUser(modifyUser.getUserPsw(),modifyUser.getUserGender(),modifyUser.getUserLoc(),modifyUser.getUserId());
+        if(modifyUser.getUserBudget() == null)
+            modifyUser.setUserBudget(user.getUserBudget());
+        userMapper.updateUser(modifyUser.getUserPsw(),modifyUser.getUserGender(),modifyUser.getUserLoc(),modifyUser.getUserId(),modifyUser.getUserBudget());
 
     }
 }
