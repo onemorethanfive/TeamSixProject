@@ -94,3 +94,15 @@ CREATE TABLE `bill_card_map` (
  PRIMARY KEY (`bill_id`,`card_id`)
 );
 
+-- ----------------------------
+-- Table structure for household
+-- ----------------------------
+DROP TABLE IF EXISTS `household`;
+CREATE TABLE `household` (
+ `household_id` varchar(20) NOT NULL COMMENT '户组id',
+ `user_id` varchar(20) NOT NULL COMMENT '用户id',
+ `household_name` varchar(20) NOT NULL COMMENT  '户组名',
+ `household_num` varchar(20) NOT NULL COMMENT  '户号',
+ `household_loc` varchar(40) NOT NULL COMMENT  '户号地址',
+ PRIMARY KEY (`household_id`,`user_id`)
+);
