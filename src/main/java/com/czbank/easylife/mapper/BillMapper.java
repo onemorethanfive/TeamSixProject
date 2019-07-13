@@ -1,18 +1,16 @@
 package com.czbank.easylife.mapper;
 
-import com.czbank.easylife.model.Card;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
 public interface BillMapper {
-    @Insert("INSERT INTO card (card_id,card_psw,card_time,card_loc,card_money,card_type) VALUES (#{cardId},#{cardPsw},#{cardTime},#{cardLoc},#{cardMoney}),#{cardType});")
-    public void addCard(@Param("cardId") String cardId, @Param("cardPsw") String cardPsw, @Param("cardTime") String cardTime, @Param("cardLoc") String cardLoc, @Param("cardMoney") String cardMoney, @Param("cardType") String cardType);
-
-    @Delete("DELETE FROM card WHERE card_id = #{cardId};")
-    public void removeCard(@Param("cardId") String cardId);
-
-    @Update("Update card SET card_money = #{cardMoney} WHERE card_id = #{cardId};")
-    public void updateCard(@Param("cardId") String cardId);
+    @Insert("INSERT INTO bill (bill_id,bill_type,bill_num,bill_date,bill_tag,sign,sign_type,bill_remarks) VALUES (#{billId},#{billType},#{billNum},#{billDate},#{billTag},#{sign},#{signType},#{billRemarks});")
+    public void addBill(@Param("billID") String billId,@Param("billType") String billType,@Param("billNum") String billNum,@Param("billDate") String billDate,@Param("billTag") String billTag,@Param("sign") String sign,@Param("signType") String signType,@Param("billRemarks") String billRemarks);
+    @Select("SELECT * FROM bill WHERE bill_id = #{billId};")
+    public String getCardMoneyById(@Param("billId") String billId);
 }
