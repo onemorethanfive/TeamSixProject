@@ -12,8 +12,8 @@ public class CardService {
     @Autowired
     private CardMapper cardMapper;
 
-    public int getMoneyByUser(String userId){
-        int money = 0;
+    public String getMoneyByUser(String userId){
+        String money ="";
         money=cardMapper.getMoneyByUser(userId);
         return money;
     }
