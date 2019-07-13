@@ -12,6 +12,11 @@ public class CardService {
     @Autowired
     private CardMapper cardMapper;
 
+    public int getMoneyByUser(String userId){
+        int money = 0;
+        money=cardMapper.getMoneyByUser(userId);
+        return money;
+    }
 
     public Card updateCard(String cardId,String cardPsw,String cardMoney){
         Card card=cardMapper.findCardById(cardId);
