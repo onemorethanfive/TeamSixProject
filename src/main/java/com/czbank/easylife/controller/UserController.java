@@ -41,6 +41,13 @@ public class UserController {
         return responseMessage;
     }
 
+    /*
+        {
+            "userId":"fff",
+            "userPsw":"12345"
+        }
+        返回User Object
+     */
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public @ResponseBody
     Object signIn(@RequestBody String body)throws Exception {
@@ -67,6 +74,13 @@ public class UserController {
         return responseMessage;
     }
 
+    /*
+        {
+            "userId":"fff",
+            "userPsw":"12345",
+            "userName":"sb"
+        }
+     */
     @RequestMapping(value = "signUp", method = RequestMethod.POST)
     public @ResponseBody
     Object signUp(@RequestBody String body) throws Exception {

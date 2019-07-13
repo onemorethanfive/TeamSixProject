@@ -27,11 +27,11 @@ public class UserService {
 
     public void modifyInfo(User modifyUser){
         User user = userMapper.findUserById(modifyUser.getUserId());
-        if(modifyUser.getUserLoc() == null)
+        if(modifyUser.getUserLoc().equals(""))
             modifyUser.setUserLoc(user.getUserLoc());
-        if(modifyUser.getUserPsw() == null)
+        if(modifyUser.getUserPsw().equals(""))
             modifyUser.setUserPsw(user.getUserPsw());
-        if(modifyUser.getUserGender() == null)
+        if(modifyUser.getUserGender().equals(""))
             modifyUser.setUserGender(user.getUserGender());
         userMapper.updateUser(modifyUser.getUserPsw(),modifyUser.getUserGender(),modifyUser.getUserLoc(),modifyUser.getUserId());
 
