@@ -112,10 +112,7 @@ public class UserController {
         return responseMessage;
     }
 
-
-    /*
-        TODO
-     */
+    
     @RequestMapping(value = "modifyPsw", method = RequestMethod.POST)
     public @ResponseBody
     Object modifyPsw(@RequestBody String body) throws Exception {
@@ -123,32 +120,32 @@ public class UserController {
         Map responseMessage = new HashMap();
         responseMessage.put("success", true);
 
-        Map mapType = JSON.parseObject(body,Map.class);
-//        User user = userService.getUserById(userId);
-//        if (user.getUserPsw().equals(userPswOld)){
-//            /*
-//
-//        修改密码需要的验证步骤
-//
-//         */
-//            user.setUserPsw(userPswNew);
-//        }
-//        else {
-//            responseMessage.put("message","密码修改失败：原密码错误");
-//            responseMessage.put("success", false);
-//            return responseMessage;
-//        }
-//
-//        try {
-//            userService.modifyInfo(user);
-//            responseMessage.put("message","密码修改成功");
-//            return responseMessage;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseMessage.put("reason", "系统错误"+e.getMessage());
-//            responseMessage.put("success", false);
-//        }
-//        return responseMessage;
+        Map map = JSON.parseObject(body,Map.class);
+        User user = userService.getUserById(map.get("userId").toString());
+        if (user.getUserPsw().equals(map.get("userPswOld").toString())){
+            /*
+
+        修改密码需要的验证步骤
+
+         */
+            user.setUserPsw(map.get("userPswNew").toString());
+        }
+        else {
+            responseMessage.put("message","密码修改失败：原密码错误");
+            responseMessage.put("success", false);
+            return responseMessage;
+        }
+
+        try {
+            userService.modifyInfo(user);
+            responseMessage.put("message","密码修改成功");
+            return responseMessage;
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseMessage.put("reason", "系统错误"+e.getMessage());
+            responseMessage.put("success", false);
+        }
+       return responseMessage;
     }
 
 }
