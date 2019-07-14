@@ -1,0 +1,4 @@
+CREATE PROCEDURE InitializeUserBalanceByDay()
+BEGIN
+INSERT INTO date_balance_map(balance,user_id) SELECT SUM(CAST(a.card_money AS  UNSIGNED INTEGER)),b.user_id FROM card a,card_user_map b WHERE a.card_id = b.card_id GROUP BY b.user_id;
+END
