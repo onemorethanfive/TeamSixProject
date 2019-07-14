@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.SimpleFormatter;
 
 @RestController
 @RequestMapping("/card/")
@@ -76,5 +79,29 @@ public class CardController {
             e.printStackTrace();
             return responseMessage;
         }
+    }
+
+    @RequestMapping(value = "getDifference/{userId}",method = RequestMethod.GET)
+    public @ResponseBody
+    Map<Date,Integer> getDifference(Model model,
+                         HttpServletRequest request,
+                         @PathVariable String userId) throws Exception {
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long cur = System.currentTimeMillis();
+        String dateStr = format.format(cur);
+        Date date = format.parse(dateStr);
+        Map<Date,Integer> diff = new HashMap<>();
+        int[] diffs = {3874,5232,1234,4531,34452,12331,33451,45312,21312,5332,
+                       2311,1231,1231,4443,1231,2134,12312,12312,23443,12334,
+                        1231,121,3454,3234,23434,54532,35542,23234,12334,12312
+                    };
+        for(int i = 0;i<30;i++){
+            diff.put(date,diffs[i]);
+            cur -= 24*60*60*1000;
+            dateStr = format.format(cur);
+            date = format.parse(dateStr);
+        }
+        return diff;
+
     }
 }
