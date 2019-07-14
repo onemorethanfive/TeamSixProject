@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/household/")
+@CrossOrigin
 public class HouseholdController {
     @Autowired
     private HouseholdService householdService;

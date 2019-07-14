@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/demo/")
+@CrossOrigin
 public class DemoController {
     @Autowired
     private DemoService demoService;

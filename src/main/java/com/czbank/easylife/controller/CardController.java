@@ -18,6 +18,7 @@ import java.util.logging.SimpleFormatter;
 
 @RestController
 @RequestMapping("/card/")
+@CrossOrigin
 public class CardController {
     @Autowired
     private CardService cardService;

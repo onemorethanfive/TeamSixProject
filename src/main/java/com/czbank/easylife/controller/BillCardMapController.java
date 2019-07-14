@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/billCardMap/")
+@CrossOrigin
 public class BillCardMapController {
     @Autowired
     private BillCardMapService billCardMapService;

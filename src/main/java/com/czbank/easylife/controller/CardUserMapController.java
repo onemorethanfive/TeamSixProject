@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/cardUserMap/")
+@CrossOrigin
 public class CardUserMapController {
     @Autowired
     private CardUserMapService cardUserMapService;
