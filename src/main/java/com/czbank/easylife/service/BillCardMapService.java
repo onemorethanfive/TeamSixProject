@@ -17,8 +17,8 @@ public class BillCardMapService {
         return bills;
     }
 
-    public void bindBillCard(String billId, String cardId ){
-        billCardMapMapper.addBillIntoMap(billId,cardId,"");
+    public int bindBillCard(String billId, String cardId ){
+        return billCardMapMapper.addBillIntoMap(billId,cardId,"");
     }
 
     public void updateUserTag(String billId, String tag){

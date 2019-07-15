@@ -36,5 +36,7 @@ public interface BillMapper {
     public List<Bill> findBillsByDateUser(@Param("billDate") String billDate,@Param("userId") String userId);
     /*传入查询的日期，查询从该日期到当前日期的所有账单,
     用当前日期的余额反推算到指定日期的每日余额*/
-    
+
+    @Select("SELECT * FROM bill WHERE bill_id IN (SELECT bill_id FROM bill_card_map WHERE card_id IN (SELECT card_id FROM card_user_map WHERE user_id = #{userID})) AND bill_tag = #{billTag};")
+    public List<Bill> getBillByUserIdAndTag(@Param("userID") String userID,@Param("billTag") String billTag);
 }

@@ -8,10 +8,11 @@ import com.czbank.easylife.model.Bill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.*;
+import java.util.Random;
 
 @Service
 public class BillService {
@@ -19,17 +20,39 @@ public class BillService {
     private BillMapper billMapper;
     @Autowired
     private CardMapper cardMapper;
+    @Autowired
+    private BillCardMapMapper billCardMapMapper;
 
     public void addBill(String billId, String billType, String billNum, String billDate, String billTag, String sign, String signType, String billRemarks) {
         billMapper.addBill(billId, billType, billNum, billDate, billTag, sign, signType, billRemarks);
     }
 
+    public String lifePay(String billNum, String billDate, String  billRemarks){
+        Random random = new Random();
+        String billId = String.valueOf(random.nextInt(10000000) + 10000000);
+        String billType = "1";
+        String billTag = "easyPay";
+        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuffer sb=new StringBuffer();
+        for(int j=0;j<20;j++){
+            int number=random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        String sign = sb.toString();
+        String signType = "MD5";
+        try{
+            addBill(billId, billType, billNum, billDate,billTag, sign, signType, billRemarks);
+        }catch (Exception e){
+            billId = lifePay(billNum,billDate,billRemarks);
+        }
+
+        return billId;
+    }
+
+
     public List<Bill> getBillByUserId(String userID) {
         return billMapper.getBillByUserId(userID);
     }
-
-    private BillCardMapMapper billCardMapMapper;
-
 
     public Map<String, Double> findBillsByDateUser(String billDate, String userId) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssss");
@@ -73,4 +96,7 @@ public class BillService {
         return everydayMoney;
     }
 
+    public List<Bill> getBillByUserIdAndTag(String userID,String billTag) {
+        return billMapper.getBillByUserIdAndTag(userID,billTag);
+    }
 }
