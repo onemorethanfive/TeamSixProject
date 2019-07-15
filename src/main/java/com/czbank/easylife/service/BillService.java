@@ -5,9 +5,11 @@ import com.czbank.easylife.mapper.BillCardMapMapper;
 import com.czbank.easylife.mapper.BillMapper;
 import com.czbank.easylife.mapper.CardMapper;
 import com.czbank.easylife.model.Bill;
+import com.czbank.easylife.model.BillTagMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,16 @@ public class BillService {
 
     public void addBill(String billId, String billType, String billNum, String billDate, String billTag, String sign, String signType, String billRemarks) {
         billMapper.addBill(billId, billType, billNum, billDate, billTag, sign, signType, billRemarks);
+    }
+
+    public List<BillTagMap> getBillByMonth(String userId){
+        SimpleDateFormat day = new SimpleDateFormat("yyyyMMdd");
+        String curTime = day.format(new Date());
+        curTime=curTime+"00000000";
+        BigInteger month = new BigInteger(curTime);
+        List<BillTagMap> bills = billMapper.getBillByMonthUserId(month,userId);
+        BillTagMap bm = new BillTagMap();
+        return bills;
     }
 
     public String lifePay(String billNum, String billDate, String  billRemarks){

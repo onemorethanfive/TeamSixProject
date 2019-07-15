@@ -30,6 +30,25 @@ public class HouseholdController {
         }
         提供所有字段,没写的填""(尽量都写)
      */
+
+
+    @RequestMapping(value = "getHouseholdByUser/{userId}", method = RequestMethod.GET)
+    public @ResponseBody
+    Object getHouseholdByUser(@PathVariable String userId) throws Exception{
+        String responseBody = "";
+        Map responseMessage = new HashMap();
+        responseMessage.put("success", true);
+        try {
+            return householdService.getHouseholdByUser(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseMessage.put("reason", "系统错误"+e.getMessage());
+            responseMessage.put("success", false);
+        }
+        return responseMessage;
+    }
+
+
     @RequestMapping(value = "addHousehold", method = RequestMethod.POST)
     public @ResponseBody
     Object addHousehold(@RequestBody String body) throws Exception{

@@ -12,6 +12,10 @@ public class HouseholdService {
     @Autowired
     private HouseholdMapper householdMapper;
 
+    public List<Household> getHouseholdByUser(String userId){
+        return householdMapper.findHouseholdByUserId(userId);
+    }
+
     public Household getHousehold(String userId, String householdId){
         return householdMapper.findHouseholdByHouseholdId(householdId,userId);
     }
