@@ -26,6 +26,9 @@ public interface BillMapper {
     @Insert("INSERT INTO card (card_id,card_psw,card_time,card_loc,card_money,card_type) VALUES (#{cardId},#{cardPsw},#{cardTime},#{cardLoc},#{cardMoney}),#{cardType});")
     public void addCard(@Param("cardId") String cardId, @Param("cardPsw") String cardPsw, @Param("cardTime") String cardTime, @Param("cardLoc") String cardLoc, @Param("cardMoney") String cardMoney, @Param("cardType") String cardType);
 
+    @Select("SELECT * FROM bill a,bill_card_map b , card_user_map c WHERE bill_id IN (SELECT bill_id FROM bill_card_map WHERE card_id IN (SELECT card_id FROM card_user_map WHERE user_id = #{userID}));")
+    public List<Bill> getBillByMonthUserId(@Param("month") String month,@Param("userID") String userID);
+    
     @Delete("DELETE FROM card WHERE card_id = #{cardId};")
     public void removeCard(@Param("cardId") String cardId);
 
