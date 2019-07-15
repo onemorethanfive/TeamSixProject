@@ -39,4 +39,23 @@ public class DateBalanceMapController {
         return responseMessage;
     }
 
+
+    @RequestMapping(value = "findBestInvestment/{userId}", method = RequestMethod.GET)
+    public @ResponseBody
+    Object findBestInvestment(Model model,
+                            HttpServletRequest request, @PathVariable String userId
+    ) throws Exception {
+        String responseBody = "";
+        Map responseMessage = new HashMap();
+        responseMessage.put("success", true);
+        try {
+            List<Integer> bestInvestment = dateBalanceMapService.findBestInvestment(userId);
+            return bestInvestment;
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseMessage.put("reason", "系统错误"+e.getMessage());
+            responseMessage.put("success", false);
+        }
+        return responseMessage;
+    }
 }

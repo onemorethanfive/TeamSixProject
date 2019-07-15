@@ -13,4 +13,7 @@ public interface DateBalanceMapMapper {
     @Select("SELECT * FROM date_balance_map WHERE user_id = #{userId} AND CAST(DATE_FORMAT(date,'%Y%m%d') AS UNSIGNED INTEGER) > #{date};")
     public List<DateBalanceMap> getBalanceByUser(@Param("userId") String userId,@Param("date") int date);
 
+    @Select("SELECT * FROM date_balance_map WHERE user_id = #{userId};")
+    public List<DateBalanceMap> getAllBalanceOnlyByUser(@Param("userId") String userId);
+
 }
