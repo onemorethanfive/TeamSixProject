@@ -51,7 +51,7 @@ public class UserController {
      */
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public @ResponseBody
-    Object signIn(@RequestBody String body)throws Exception {
+    Object signIn(@RequestBody String body,HttpServletRequest request)throws Exception {
         String responseBody = "";
         Map responseMessage = new HashMap();
         responseMessage.put("success", true);
@@ -60,6 +60,9 @@ public class UserController {
         try {
             if (userService.login(user.getUserId(),user.getUserPsw())){
                 responseMessage.put("message","登录成功");
+                request.getSession().setAttribute("userId", user.getUserId());
+                request.getSession().setAttribute("request Url", request.getRequestURL());
+                //map.put("request Url", request.getRequestURL());
                 return userService.getUserById(user.getUserId());
             }
             else {
@@ -177,6 +180,13 @@ public class UserController {
             responseMessage.put("success", false);
         }
        return responseMessage;
+    }
+    @RequestMapping(value = "/sessions", method = RequestMethod.GET)
+    public Object sessions (HttpServletRequest request){
+        Map<String, Object> map = new HashMap<>();
+        map.put("sessionId", request.getSession().getId());
+        map.put("message", request.getSession().getAttribute("map"));
+        return map;
     }
 
 }
