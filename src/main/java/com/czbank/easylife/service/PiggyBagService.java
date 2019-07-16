@@ -21,6 +21,11 @@ public class PiggyBagService {
         return bills;
     }
 
+    public PiggyBag getByUser(String userId){
+        PiggyBag bill = piggyBagMapper.getByUser(userId);
+        return bill;
+    }
+
     public void addBag(PiggyBag piggyBag){
         piggyBagMapper.addBag(piggyBag);
     }

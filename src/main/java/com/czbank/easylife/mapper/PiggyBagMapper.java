@@ -13,6 +13,9 @@ public interface PiggyBagMapper {
     @Select("SELECT * FROM piggy_bag WHERE bag_id = #{bagId};")
     public PiggyBag getById(@Param("bagId") String bagId);
 
+    @Select("SELECT * FROM piggy_bag WHERE user_id = #{userId};")
+    public PiggyBag getByUser(@Param("userId") String userId);
+
     @Insert("INSERT INTO piggy_bag (money_pool,daily_money,target_money,user_id,start_date,end_date,bag_id) VALUES (#{moneyPool},#{dailyMoney},#{targetMoney},#{userId},#{startDate},#{endDate},#{bagId};")
     public void addBag(PiggyBag piggyBag);
 
