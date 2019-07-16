@@ -3,6 +3,7 @@ package com.czbank.easylife.controller;
 import com.czbank.easylife.model.Bill;
 import com.czbank.easylife.model.BillTagMap;
 import com.czbank.easylife.model.DateBalanceMap;
+import com.czbank.easylife.model.UserTag;
 import com.czbank.easylife.service.BillCardMapService;
 import com.czbank.easylife.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class BillController {
                               @RequestParam(value = "userId", defaultValue = "") final String userId
     ) throws Exception {
         return billService.getBillByUserId(userId);
+    }
+
+    @RequestMapping(value = "getBillsTagByUser", method = RequestMethod.GET)
+    public @ResponseBody
+    List<UserTag> getBillsTagByUser(Model model,
+                                    HttpServletRequest request,
+                                    @RequestParam(value = "userId", defaultValue = "") final String userId
+    ) throws Exception {
+        return billService.getBillsTagByUser(userId);
     }
 
     @RequestMapping(value = "getBillsByMonth/{userId}", method = RequestMethod.GET)

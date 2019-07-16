@@ -17,6 +17,6 @@ public interface BillCardMapMapper {
     public int addBillIntoMap(@Param("billId") String billId, @Param("cardId") String cardId,@Param("billEztag")String billEztag);
 
     @Update("UPDATE bill_card_map SET bill_eztag = #{billEZTag} where bill_id = #{billId}")
-    public void updateTag(@Param("billId") String billId, @Param("billEZTag") String billEZTag);
+    public int updateTag(@Param("billId") String billId, @Param("billEZTag") String billEZTag);
 
 }

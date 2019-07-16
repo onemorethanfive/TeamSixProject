@@ -6,6 +6,7 @@ import com.czbank.easylife.mapper.BillMapper;
 import com.czbank.easylife.mapper.CardMapper;
 import com.czbank.easylife.model.Bill;
 import com.czbank.easylife.model.BillTagMap;
+import com.czbank.easylife.model.UserTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,12 @@ public class BillService {
     public List<Bill> getBillByUserId(String userID) {
         return billMapper.getBillByUserId(userID);
     }
+
+
+    public List<UserTag> getBillsTagByUser(String userID) {
+        return billMapper.getBillsTagByUser(userID);
+    }
+
 
     public Map<String, Double> findBillsByDateUser(String billDate, String userId) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssss");

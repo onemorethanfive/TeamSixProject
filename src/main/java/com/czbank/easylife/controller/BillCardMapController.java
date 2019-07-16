@@ -1,5 +1,6 @@
 package com.czbank.easylife.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.czbank.easylife.model.Bill;
 import com.czbank.easylife.service.BillCardMapService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,12 @@ public class BillCardMapController {
 
     @RequestMapping(value = "updateTag", method = RequestMethod.GET)
     public @ResponseBody
-    void updateTag(Model model,
+    int updateTag(Model model,
                            HttpServletRequest request,
                    @RequestParam(value = "billId", defaultValue = "") final String billId,
                    @RequestParam(value = "tag", defaultValue = "") final String tag
     ) throws Exception {
-        billCardMapService.updateUserTag(billId,tag);
+        return billCardMapService.updateUserTag(billId,tag);
     }
 
     @RequestMapping(value = "addBillCard", method = RequestMethod.GET)

@@ -21,7 +21,7 @@ public class BillCardMapService {
         return billCardMapMapper.addBillIntoMap(billId,cardId,"");
     }
 
-    public void updateUserTag(String billId, String tag){
+    public int updateUserTag(String billId, String tag){
         String tagStr = "";
         switch(tag){
             case "饮食":
@@ -42,7 +42,7 @@ public class BillCardMapService {
             default:
                 tagStr="OTHER";
         }
-        billCardMapMapper.updateTag(billId,tagStr);
+        return billCardMapMapper.updateTag(billId,tagStr);
     }
 
 }

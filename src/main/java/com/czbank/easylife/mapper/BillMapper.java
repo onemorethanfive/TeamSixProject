@@ -2,6 +2,7 @@ package com.czbank.easylife.mapper;
 
 import com.czbank.easylife.model.Bill;
 import com.czbank.easylife.model.BillTagMap;
+import com.czbank.easylife.model.UserTag;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +26,9 @@ public interface BillMapper {
 
     @Select("SELECT * FROM bill WHERE bill_id IN (SELECT bill_id FROM bill_card_map WHERE card_id IN (SELECT card_id FROM card_user_map WHERE user_id = #{userID}));")
     public List<Bill> getBillByUserId(@Param("userID") String userID);
+
+    @Select("SELECT a.bill_date,a.bill_id,a.bill_type,a.bill_num,a.bill_remarks,b.bill_eztag FROM bill a LEFT JOIN bill_card_map b on a.bill_id = b.bill_id WHERE b.card_id IN (SELECT card_id FROM card_user_map WHERE user_id = #{userID});")
+    public List<UserTag> getBillsTagByUser(@Param("userID") String userID);
 
     @Insert("INSERT INTO card (card_id,card_psw,card_time,card_loc,card_money,card_type) VALUES (#{cardId},#{cardPsw},#{cardTime},#{cardLoc},#{cardMoney}),#{cardType});")
     public void addCard(@Param("cardId") String cardId, @Param("cardPsw") String cardPsw, @Param("cardTime") String cardTime, @Param("cardLoc") String cardLoc, @Param("cardMoney") String cardMoney, @Param("cardType") String cardType);
