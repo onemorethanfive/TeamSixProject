@@ -38,12 +38,15 @@ public interface BillMapper {
     @Update("Update card SET card_money = #{cardMoney} WHERE card_id = #{cardId};")
     public void updateCard(@Param("cardId") String cardId);
 
-    @Select("SELECT  a.* FROM bill a,bill_card_map b ,card_user_map c WHERE a.bill_id = b.bill_id AND b.card_id = c.card_id AND c.user_id =#{userId} AND CAST(a.bill_date AS UNSIGNED INTEGER)*100000000 > CAST(#{userId} AS UNSIGNED INTEGER);")
+    @Select("SELECT  a.* FROM bill a,bill_card_map b ,card_user_map c WHERE a.bill_id = b.bill_id AND b.card_id = c.card_id AND c.user_id =#{userId} AND CAST(a.bill_date AS UNSIGNED INTEGER) > CAST(#{billDate} AS UNSIGNED INTEGER)*100000000;")
     public List<Bill> findBillsByDateUser(@Param("billDate") String billDate,@Param("userId") String userId);
     /*传入查询的日期，查询从该日期到当前日期的所有账单,
     用当前日期的余额反推算到指定日期的每日余额*/
+
     
     @Select("SELECT * FROM bill WHERE bill_id IN (SELECT bill_id FROM bill_card_map WHERE card_id IN (SELECT card_id FROM card_user_map WHERE user_id = #{userID})) AND bill_tag = #{billTag};")
     public List<Bill> getBillByUserIdAndTag(@Param("userID") String userID,@Param("billTag") String billTag);
+
+
 
 }

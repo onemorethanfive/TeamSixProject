@@ -41,6 +41,7 @@ public class DateBalanceMapController {
 
 
     @RequestMapping(value = "findBestInvestment/{userId}", method = RequestMethod.GET)
+
     public @ResponseBody
     Object findBestInvestment(Model model,
                             HttpServletRequest request, @PathVariable String userId
