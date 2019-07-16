@@ -1,9 +1,9 @@
 package com.czbank.easylife.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.czbank.easylife.model.Household;
-import com.czbank.easylife.service.HouseholdService;
+import com.czbank.easylife.model.Wish;
 import com.czbank.easylife.service.UserService;
+import com.czbank.easylife.service.WishService;
 import com.czbank.easylife.util.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/household/")
+@RequestMapping("/wish/")
 @CrossOrigin
-public class HouseholdController {
+public class WishController {
     @Autowired
-    private HouseholdService householdService;
+    private WishService wishService;
     @Autowired
     private UserService userService;
 
@@ -32,14 +32,14 @@ public class HouseholdController {
      */
 
 
-    @RequestMapping(value = "getHouseholdByUser/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "getWishByUser/{userId}", method = RequestMethod.GET)
     public @ResponseBody
-    Object getHouseholdByUser(@PathVariable String userId) throws Exception{
+    Object getWishByUser(@PathVariable String userId) throws Exception{
         String responseBody = "";
         Map responseMessage = new HashMap();
         responseMessage.put("success", true);
         try {
-            return householdService.getHouseholdByUser(userId);
+            return wishService.getWishes("userId");
         } catch (Exception e) {
             e.printStackTrace();
             responseMessage.put("reason", "系统错误"+e.getMessage());
@@ -49,29 +49,22 @@ public class HouseholdController {
     }
 
 
-    @RequestMapping(value = "addHousehold", method = RequestMethod.POST)
+    @RequestMapping(value = "addWish", method = RequestMethod.POST)
     public @ResponseBody
-    Object addHousehold(@RequestBody String body) throws Exception{
+    Object addWish(@RequestBody String body) throws Exception{
         String responseBody = "";
         Map responseMessage = new HashMap();
         responseMessage.put("success", true);
-        Household household = JsonHelper.getInstance().read(body,Household.class);
-        if(userService.getUserById(household.getUserId()) == null){
-            responseMessage.put("reason", "数据库错误:没有该用户");
+        Wish wish = JsonHelper.getInstance().read(body,Wish.class);
+        if(userService.getUserById(wish.getUserId()) == null){
+            responseMessage.put("reason", "请登录");
             responseMessage.put("success", false);
             return responseMessage;
         }
-        try {
-                if(householdService.getHousehold(household.getUserId(),household.getHouseholdId()) == null){
-                    householdService.addHousehold(household);
-                    responseMessage.put("message","户组资料添加成功");
+        try { wishService.addWish(wish);
+
                     return responseMessage;
-                }
-                else{
-                    responseMessage.put("success", false);
-                    responseMessage.put("reason", "数据库错误:已有该组");
-                    return responseMessage;
-                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 responseMessage.put("reason", "系统错误"+e.getMessage());
@@ -86,19 +79,19 @@ public class HouseholdController {
             "householdId":"3"
         }
      */
-    @RequestMapping(value = "deleteHousehold", method = RequestMethod.POST)
+    @RequestMapping(value = "deleteWish", method = RequestMethod.POST)
     public @ResponseBody
-    Object deleteHousehold(@RequestBody String body) throws Exception{
+    Object deleteWish(@RequestBody String body) throws Exception{
         String responseBody = "";
         Map responseMessage = new HashMap();
         responseMessage.put("success", true);
         //Household household = JsonHelper.getInstance().read(body,Household.class);
         Map map = JSON.parseObject(body,Map.class);
-        Household household = householdService.getHousehold(map.get("userId").toString(),map.get("householdId").toString());
+        Wish wish = wishService.getWish(map.get("wishId").toString());
         try {
-            if(household != null){
-                householdService.deletdHousehold(household);
-                responseMessage.put("message","愿望表组资料删除成功");
+            if(wish != null){
+                wishService.removeWish(wish);
+                responseMessage.put("message","愿望表资料删除成功");
                 return responseMessage;
             }
             else {
@@ -132,15 +125,15 @@ public class HouseholdController {
             String responseBody = "";
             Map responseMessage = new HashMap();
             responseMessage.put("success", true);
-            Household household = JsonHelper.getInstance().read(body,Household.class);
+           Wish wish= JsonHelper.getInstance().read(body,Wish.class);
             try {
-                if(householdService.getHousehold(household.getUserId(),household.getHouseholdId()) != null){
-                    householdService.modifyInfo(household);
+                if(wishService.getWish(wish.getWishId()) != null){
+                    wishService.modifyInfo(wish);
                     responseMessage.put("message","愿望表资料修改成功");
                     return responseMessage;
                 }
                 else {
-                    responseMessage.put("reason", "数据库错误:无该户组");
+                    responseMessage.put("reason", "数据库错误:无该愿望表");
                     responseMessage.put("success", false);
                     return responseMessage;
                 }
