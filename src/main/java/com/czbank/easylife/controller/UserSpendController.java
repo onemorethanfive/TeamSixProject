@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/userSpend/")
@@ -26,12 +24,14 @@ public class UserSpendController {
     public @ResponseBody
     List<Double> userSpend(Model model,
                                                                 HttpServletRequest request,
-                                                                @RequestParam(value = "userId", defaultValue = "") final String userId,
-                                                                @RequestParam(value = "today", defaultValue = "") final String today
+                                                                @RequestParam(value = "userId", defaultValue = "") final String userId
     )throws Exception {
 
         String responseBody = "";
         Map responseMessage = new HashMap();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String today=sdf.format(new Date(System.currentTimeMillis()));
+        System.out.println(today);
         try {
             return userSpendService.getLimitReminder(userId,today);
         }
@@ -46,11 +46,11 @@ public class UserSpendController {
     public @ResponseBody
     int updateTag(Model model,
                   HttpServletRequest request,
-                  @RequestParam(value = "billId", defaultValue = "") final String billId,
+                  @RequestParam(value = "userID", defaultValue = "") final String userID,
                   @RequestParam(value = "totaldate", defaultValue = "") final String totaldate,
                   @RequestParam(value = "totallimit", defaultValue = "") final String totallimit
     ) throws Exception {
-        return userSpendService.updateUserSpend(billId,totaldate,totallimit);
+        return userSpendService.updateUserSpend(userID,totaldate,totallimit);
     }
 
 
