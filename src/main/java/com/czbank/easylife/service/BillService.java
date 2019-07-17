@@ -35,6 +35,9 @@ public class BillService {
         String curTime = day.format(new Date());
         curTime=curTime+"00000000";
         BigInteger month = new BigInteger(curTime);
+        String a = "10000000000";
+        BigInteger mon = new BigInteger(a);
+        month = month.subtract(mon);
         List<BillTagMap> bills = billMapper.getBillByMonthUserId(month,userId);
         BillTagMap bm = new BillTagMap();
         return bills;
