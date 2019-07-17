@@ -4,13 +4,17 @@ import com.czbank.easylife.model.User;
 import com.czbank.easylife.service.UserService;
 import com.czbank.easylife.util.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import redis.clients.jedis.Jedis;
+
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +25,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "getUser/{userId}",method = RequestMethod.GET)
     public @ResponseBody
@@ -60,10 +66,27 @@ public class UserController {
         try {
             if (userService.login(user.getUserId(),user.getUserPsw())){
                 responseMessage.put("message","登录成功");
-                request.getSession().setAttribute("userId", user.getUserId());
-                request.getSession().setAttribute("request Url", request.getRequestURL());
-                //map.put("request Url", request.getRequestURL());
-                return userService.getUserById(user.getUserId());
+                /*
+                发放token
+                 */
+
+                Jedis jedis = new Jedis("127.0.0.1", 6379);
+                String token = user.getUserId() + "token";
+                jedis.set(user.getUserId(), token);
+                jedis.expire(user.getUserId(), 604800);
+                jedis.set(token, user.getUserId());
+                jedis.expire(token, 604800);
+                Long currentTime = System.currentTimeMillis();
+                jedis.set(token + user.getUserId(), currentTime.toString());
+                jedis.close();
+
+
+                User user1 = userService.getUserById(user.getUserId());
+                String jsonStr = JSON.toJSONString(user1);
+                Map<String,Object> map = JSON.parseObject(jsonStr, Map.class);
+                map.put("token",token);
+                map.remove("userPsw");
+                return JSON.toJSONString(map);
             }
             else {
                 responseMessage.put("success",false);
