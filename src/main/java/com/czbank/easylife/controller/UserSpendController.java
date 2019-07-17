@@ -24,13 +24,13 @@ public class UserSpendController {
     public @ResponseBody
     Map<String,Object> userSpend(Model model,
                                                                 HttpServletRequest request,
-                                                                @RequestParam(value = "userId", defaultValue = "") final String userId
+                                                                @RequestParam(value = "userId", defaultValue = "") final String userId,
+                           @RequestParam(value = "today", defaultValue = "") final String today
     )throws Exception {
 
         String responseBody = "";
         Map responseMessage = new HashMap();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String today=sdf.format(new Date(System.currentTimeMillis()));
         System.out.println(today);
         try {
             return userSpendService.getLimitReminder(userId,today);
