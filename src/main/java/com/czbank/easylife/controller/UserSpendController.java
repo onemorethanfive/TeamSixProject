@@ -27,16 +27,13 @@ public class UserSpendController {
     List<Double> userSpend(Model model,
                                                                 HttpServletRequest request,
                                                                 @RequestParam(value = "userId", defaultValue = "") final String userId,
-                                                                @RequestParam(value = "today", defaultValue = "") final String today,
-                                                                @RequestParam(value = "pastday", defaultValue = "") final double pastday,
-                                                                @RequestParam(value = "totalday", defaultValue = "") final double totalday,
-                                                                @RequestParam(value = "totallimit", defaultValue = "") final double totallimit
+                                                                @RequestParam(value = "today", defaultValue = "") final String today
     )throws Exception {
 
         String responseBody = "";
         Map responseMessage = new HashMap();
         try {
-            return userSpendService.getLimitReminder(userId,today,pastday,totalday,totallimit);
+            return userSpendService.getLimitReminder(userId,today);
         }
         catch (Exception e){
             e.printStackTrace();
