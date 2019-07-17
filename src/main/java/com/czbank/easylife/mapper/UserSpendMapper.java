@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserSpendMapper {
     @Select("SELECT * FROM user_spend WHERE userid=#{userId} AND date=(SELECT MAX(date) FROM user_spend WHERE date<#{date});")
     public UserSpend findTotalspendByIdAndDate(@Param("userId") String userId, @Param("date") String date);
-    @Update("UPDATE datetotal SET datetotal = #{datetotal} AND limittotal = #{limittotal} where bill_id = #{billId}")
-    public int updateUserSpend(@Param("billId") String billId, @Param("datetotal") String datetotal, @Param("limittotal") String limittotal);
+    @Update("UPDATE userspend SET datetotal = #{datetotal} AND limittotal = #{limittotal} where userID = #{userID}")
+    public int updateUserSpend(@Param("userID") String userID, @Param("datetotal") String datetotal, @Param("limittotal") String limittotal);
 }

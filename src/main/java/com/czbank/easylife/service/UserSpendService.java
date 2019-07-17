@@ -47,8 +47,8 @@ public class UserSpendService {
         return answer;
     }
 
-    public int updateUserSpend(String billId, String datelimit, String totallimit){
-        return userSpendMapper.updateUserSpend(billId,datelimit,totallimit);
+    public int updateUserSpend(String userID, String datelimit, String totallimit){
+        return userSpendMapper.updateUserSpend(userID,datelimit,totallimit);
     }
 
 }
