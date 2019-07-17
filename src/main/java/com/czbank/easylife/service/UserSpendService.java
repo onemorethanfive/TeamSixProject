@@ -28,7 +28,8 @@ public class UserSpendService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date a = sdf.parse(restTillYesterday.getDate());
         Date b = sdf.parse(restTillYesterday.getStart());
-        double pastday =(int)(a.getTime()-b.getTime())/24*60*60*1000;
+        double pastday = a.getTime()-b.getTime();
+        pastday = pastday/(24*60*60*1000);
         List<Double> answer = new ArrayList<>();
         double totalamoounttoday = (totallimit-Double.valueOf(restTillYesterday.getTotalspend()))/(totalday-pastday);
         List<Double> billintoday = new ArrayList<>();
@@ -44,8 +45,8 @@ public class UserSpendService {
         Map<String,Object> result = new HashMap<>();
         result.put("limitToday",String.valueOf(resttoday));
         result.put("limitTotal",String.valueOf(totallimit));
-        result.put("restToday",String.valueOf(totallimit-sum-Double.valueOf(restTillYesterday.getTotalspend())));
-        result.put("restTotal",String.valueOf(totalamoounttoday));
+        result.put("restTotal",String.valueOf(totallimit-sum-Double.valueOf(restTillYesterday.getTotalspend())));
+        result.put("restToday",String.valueOf(totalamoounttoday));
         result.put("startDate",b.toString());
         result.put("pastDays",pastday);
         result.put("totalDay",totalday);
