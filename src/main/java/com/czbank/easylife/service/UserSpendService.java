@@ -21,7 +21,7 @@ public class UserSpendService {
     private UserSpendMapper userSpendMapper;
     @Autowired
     private BillMapper billMapper;
-//list:第一项今日剩余限额，第二项总剩余余额
+//list:第一项今日剩余限额，第二项总剩余余额,第三项今日总可用余额
     //输入：userid，今天日期，限额到今天天数，限额总天数，限额金额
     public List<Double> getLimitReminder(String userId, String today ) throws ParseException {
         List<Bill> todaybill  = billMapper.findBillsByDateUser(today,userId);
@@ -47,5 +47,10 @@ public class UserSpendService {
         return answer;
     }
 
+    public int updateUserSpend(String billId, String datelimit, String totallimit){
+        return userSpendMapper.updateUserSpend(billId,datelimit,totallimit);
+    }
 
 }
+
+
