@@ -42,5 +42,16 @@ public class UserSpendController {
         }
     }
 
+    @RequestMapping(value = "updateUserSpend", method = RequestMethod.GET)
+    public @ResponseBody
+    int updateTag(Model model,
+                  HttpServletRequest request,
+                  @RequestParam(value = "billId", defaultValue = "") final String billId,
+                  @RequestParam(value = "totaldate", defaultValue = "") final String totaldate,
+                  @RequestParam(value = "totallimit", defaultValue = "") final String totallimit
+    ) throws Exception {
+        return userSpendService.updateUserSpend(billId,totaldate,totallimit);
+    }
+
 
 }
