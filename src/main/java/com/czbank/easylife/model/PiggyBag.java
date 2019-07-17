@@ -10,6 +10,6 @@ public class PiggyBag {
     private String dailyMoney;
     private String targetMoney;
     private String userId;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 }

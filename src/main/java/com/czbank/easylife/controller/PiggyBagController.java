@@ -61,8 +61,8 @@ public class PiggyBagController {
     Object addBag(Model model,
                    HttpServletRequest request,
                   @RequestParam(value = "dailyMoney", defaultValue = "") final String dailyMoney,
-                  @RequestParam(value = "startDate", defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                  @RequestParam(value = "endDate", defaultValue = "") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                  @RequestParam(value = "startDate", defaultValue = "") final String startDate,
+                  @RequestParam(value = "endDate", defaultValue = "") final String endDate,
                   @RequestParam(value = "targetMoney", defaultValue = "") final String targetMoney,
                   @RequestParam(value = "moneyPool", defaultValue = "") final String moneyPool,
                   @RequestParam(value = "userId", defaultValue = "") final String userId
