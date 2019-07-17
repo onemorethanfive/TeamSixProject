@@ -22,7 +22,7 @@ public class UserSpendController {
 
     @RequestMapping(value = "userSpend", method = RequestMethod.GET)
     public @ResponseBody
-    List<Double> userSpend(Model model,
+    Map<String,Object> userSpend(Model model,
                                                                 HttpServletRequest request,
                                                                 @RequestParam(value = "userId", defaultValue = "") final String userId
     )throws Exception {
@@ -38,7 +38,7 @@ public class UserSpendController {
         catch (Exception e){
             e.printStackTrace();
             List<Double> a =new ArrayList<>();
-            return a;
+            return null;
         }
     }
 

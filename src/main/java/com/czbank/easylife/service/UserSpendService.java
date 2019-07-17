@@ -8,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import java.util.SplittableRandom;
 @Service
 public class UserSpendService {
     @Autowired
@@ -23,7 +20,7 @@ public class UserSpendService {
     private BillMapper billMapper;
 //list:第一项今日剩余限额，第二项总剩余余额,第三项今日总可用余额
     //输入：userid，今天日期，限额到今天天数，限额总天数，限额金额
-    public List<Double> getLimitReminder(String userId, String today ) throws ParseException {
+    public Map<String,Object> getLimitReminder(String userId, String today ) throws ParseException {
         List<Bill> todaybill  = billMapper.findBillsByDateUser(today,userId);
         UserSpend restTillYesterday = userSpendMapper.findTotalspendByIdAndDate(userId,today);
         Double totalday = Double.valueOf(restTillYesterday.getDatetotal());
@@ -31,7 +28,7 @@ public class UserSpendService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date a = sdf.parse(restTillYesterday.getDate());
         Date b = sdf.parse(restTillYesterday.getStart());
-        double pastday = a.getTime()-b.getTime();
+        double pastday =(int)(a.getTime()-b.getTime())/24*60*60*1000;
         List<Double> answer = new ArrayList<>();
         double totalamoounttoday = (totallimit-Double.valueOf(restTillYesterday.getTotalspend()))/(totalday-pastday);
         List<Double> billintoday = new ArrayList<>();
@@ -44,7 +41,15 @@ public class UserSpendService {
         answer.add(resttoday);
         answer.add(totallimit-sum-Double.valueOf(restTillYesterday.getTotalspend()));
         answer.add(totalamoounttoday);
-        return answer;
+        Map<String,Object> result = new HashMap<>();
+        result.put("limitToday",String.valueOf(resttoday));
+        result.put("limitTotal",String.valueOf(totallimit));
+        result.put("restToday",String.valueOf(totallimit-sum-Double.valueOf(restTillYesterday.getTotalspend())));
+        result.put("restTotal",String.valueOf(totalamoounttoday));
+        result.put("startDate",b.toString());
+        result.put("pastDays",pastday);
+        result.put("totalDay",totalday);
+        return result;
     }
 
     public int updateUserSpend(String userID, String datelimit, String totallimit){
