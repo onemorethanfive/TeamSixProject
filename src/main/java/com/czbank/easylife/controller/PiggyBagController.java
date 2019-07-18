@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/piggy/")
-@CrossOrigin(origins="http://localhost:8080")
+@CrossOrigin
 public class PiggyBagController {
     @Autowired
     private PiggyBagService piggyBagService;

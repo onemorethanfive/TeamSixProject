@@ -19,7 +19,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins ="http://localhost:8080")
+@CrossOrigin
 public class RedisSessionInterceptor implements HandlerInterceptor
 {
     @Autowired
@@ -45,7 +45,7 @@ public class RedisSessionInterceptor implements HandlerInterceptor
 
         if (request.getHeader("Authorization") != null)
         {
-            Jedis jedis = new Jedis("127.0.0.1", 6379);
+            Jedis jedis = new Jedis("114.115.141.194", 8090);
 
             //System.out.println(jedis.get(request.getHeader("Authorization")));
 

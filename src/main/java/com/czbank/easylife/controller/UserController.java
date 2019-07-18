@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user/")
-@CrossOrigin(origins ="http://localhost:8080")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
@@ -70,7 +70,7 @@ public class UserController {
                 发放token
                  */
 
-                Jedis jedis = new Jedis("127.0.0.1", 6379);
+                Jedis jedis = new Jedis("114.115.141.194", 8090);
                 String token = user.getUserId() + "token";
                 jedis.set(user.getUserId(), token);
                 jedis.expire(user.getUserId(), 604800);
